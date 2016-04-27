@@ -1,0 +1,19 @@
+.survey {
+   padding: 20px;
+   border: 1px solid #ccc;
+
+}
+
+.question {
+   font-weight: bold;
+   margin-bottom: 20px;
+
+}
+
+.answers {
+   margin-bottom: 20px;
+}
+
+.answer {
+   margin-bottom: 10px;
+}
