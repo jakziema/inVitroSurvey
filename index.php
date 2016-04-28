@@ -5,12 +5,12 @@
 <html lang="en">
       <head>
          <meta charset="utf-8">
-         <title>Ankieta na teamt in vitro</title>
+         <title>Ankieta na temat in vitro</title>
 
          <link rel="stylesheet" href="css/main.css" />
       </head>
       <body>
-         <div class="survey">
+         <div class="question_answer">
             <div class="question">
                Czy popiera Pan/Pani procedurę zapłodnień metodą in vitro?
             </div>
@@ -18,7 +18,7 @@
                <div class="answers">
                   <div class="option">
                      <input type="radio" name="popiera" value="tak" id="c1"/>
-                     <label for="c1">TAK</label>
+                     <label for="c1">Tak</label>
                   </div>
                   <div class="option">
                      <input type="radio" name="popiera" value="nie" id="c2"/>
