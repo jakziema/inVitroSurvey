@@ -13,10 +13,20 @@ if($conn->connect_error) {
 
 
 
-   $c1 = $_POST['popiera'];
+   $a1 = $_POST['popiera'];
+   $a2 = $_POST['zajscie'];
+   $a3 = $_POST['zycie'];
+   $a4 = $_POST['popiera'];
+   $a5 = $_POST['zajscie'];
+   $a6 = $_POST['zycie'];
+   $a7 = $_POST['popiera'];
+   $a8 = $_POST['zajscie'];
+   $a9 = $_POST['zycie'];
+   $a10 = $_POST['zycie'];
 
 
-   $sql = "INSERT INTO ankieta (pytanie1) VALUES ('$c1')";
+
+   $sql = "INSERT INTO ankieta (pytanie1,pytanie2,pytanie3) VALUES ('$a1','$a2','$a3')";
 
 
 
