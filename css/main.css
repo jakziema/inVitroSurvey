@@ -11,14 +11,18 @@
 .question {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
    font-weight: 300;
-   margin-bottom: 20px;
+   margin-bottom: 30px;
    text-align: center;
 
 }
 
 .answers {
+
    margin-bottom: 20px;
    text-align: justify;
+   text-indent: 100px;
+
+
 }
 
 .option {
@@ -49,6 +53,18 @@
 
 
 }
+
+.title {
+  height: 20em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+}
+.title p {
+  margin: 0 }
 
 .footer {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
