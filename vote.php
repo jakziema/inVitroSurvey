@@ -48,8 +48,6 @@ switch ($suma) {
     case ($suma > 11):
         $result = "Nie jest dobrze. Stan twojej płodności jest zagrożony.";
         break;
-
-
 }
 
 
@@ -68,7 +66,6 @@ if($conn->query($sql) === TRUE) {
    <div class = title>
    <p>
    $result
-   $suma
    </p>
    </div>
    </body>
