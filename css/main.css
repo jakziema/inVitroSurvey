@@ -55,13 +55,13 @@
 }
 
 .title {
-  height: 20em;
+  height: 10em;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
-  font-size: 30px;
+  font-size: 40px;
 }
 .title p {
   margin: 0 }
