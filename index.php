@@ -246,15 +246,15 @@
          </div>
          <div class="answers">
             <div class="option">
-               <input type="radio" name="tyton" value="" id="c111"checked/>
+               <input type="radio" name="tyton" value="4" id="c111"checked/>
                <label for="c111">Tak, nałogowo</label>
             </div>
             <div class="option">
-               <input type="radio" name="tyton" value="" id="c112"/>
+               <input type="radio" name="tyton" value="2" id="c112"/>
                <label for="c112">Tak, okazyjnie</label>
             </div>
             <div class="option">
-               <input type="radio" name="tyton" value="" id="c113"/>
+               <input type="radio" name="tyton" value="0" id="c113"/>
                <label for="c113">Nie</label>
             </div>
          </div>
@@ -267,20 +267,20 @@
          </div>
          <div class="answers">
             <div class="option">
-               <input type="radio" name="alkohol" value="" id="c121"checked/>
+               <input type="radio" name="alkohol" value="4" id="c121"checked/>
                <label for="c121">Tak, kilka razy w tygodniu</label>
             </div>
             <div class="option">
-               <input type="radio" name="alkohol" value="" id="c122"/>
+               <input type="radio" name="alkohol" value="2" id="c122"/>
                <label for="c122">Tak, kilka razy w miesiącu</label>
             </div>
             <div class="option">
-               <input type="radio" name="alkohol" value="" id="c123"/>
+               <input type="radio" name="alkohol" value="1" id="c123"/>
                <label for="c123">Sporadycznie</label>
             </div>
 
             <div class="option">
-               <input type="radio" name="alkohol" value="" id="c124"/>
+               <input type="radio" name="alkohol" value="0" id="c124"/>
                <label for="c124">Nie</label>
             </div>
          </div>
@@ -293,11 +293,11 @@
          </div>
          <div class="answers">
             <div class="option">
-               <input type="radio" name="telefon" value="" id="c131"checked/>
+               <input type="radio" name="telefon" value="2" id="c131"checked/>
                <label for="c131">Tak</label>
             </div>
             <div class="option">
-               <input type="radio" name="telefon" value="" id="c132"/>
+               <input type="radio" name="telefon" value="0" id="c132"/>
                <label for="c132">Nie</label>
             </div>
          </div>
@@ -310,11 +310,11 @@
          </div>
          <div class="answers">
             <div class="option">
-               <input type="radio" name="promieniowanie" value="" id="c141" checked/>
+               <input type="radio" name="promieniowanie" value="3" id="c141" checked/>
                <label for="c141">Tak</label>
             </div>
             <div class="option">
-               <input type="radio" name="tyton" value="" id="c142"/>
+               <input type="radio" name="promieniowanie" value="0" id="c142"/>
                <label for="c142">Nie</label>
             </div>
          </div>
@@ -327,11 +327,11 @@
          </div>
          <div class="answers">
             <div class="option">
-               <input type="radio" name="stres" value="" id="c151" checked/>
+               <input type="radio" name="stres" value="3" id="c151" checked/>
                <label for="c151">Tak</label>
             </div>
             <div class="option">
-               <input type="radio" name="stres" value="" id="c152"/>
+               <input type="radio" name="stres" value="0" id="c152"/>
                <label for="c152">Nie</label>
             </div>
          </div>
