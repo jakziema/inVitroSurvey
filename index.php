@@ -226,15 +226,113 @@
          <div class="answers">
             <div class="option">
                <input type="radio" name="zwiazek" value="nie" id="c101"checked/>
-               <label for="c101">nie mam</label>
+               <label for="c101">Nie</label>
             </div>
             <div class="option">
                <input type="radio" name="zwiazek" value="tak_nf" id="c102"/>
-               <label for="c102">mam jedno</label>
+               <label for="c102">Tak, w związku nieformalnym</label>
             </div>
             <div class="option">
                <input type="radio" name="zwiazek" value="tak_f" id="c103"/>
-               <label for="c103">mam więcej niż jedno</label>
+               <label for="c103">Tak, w związku formalnym.</label>
+            </div>
+         </div>
+      </div>
+
+      <!-- Pytanie nr 11 -->
+      <div class="question_answer_plodnosc">
+         <div class="question">
+            Czy palisz wyroby tytoniowe?
+         </div>
+         <div class="answers">
+            <div class="option">
+               <input type="radio" name="tyton" value="" id="c111"checked/>
+               <label for="c111">Tak, nałogowo</label>
+            </div>
+            <div class="option">
+               <input type="radio" name="tyton" value="" id="c112"/>
+               <label for="c112">Tak, okazyjnie</label>
+            </div>
+            <div class="option">
+               <input type="radio" name="tyton" value="" id="c113"/>
+               <label for="c113">Nie</label>
+            </div>
+         </div>
+      </div>
+
+      <!-- Pytanie nr 12 -->
+      <div class="question_answer_plodnosc">
+         <div class="question">
+            Czy pijesz alkohol?
+         </div>
+         <div class="answers">
+            <div class="option">
+               <input type="radio" name="alkohol" value="" id="c121"checked/>
+               <label for="c121">Tak, kilka razy w tygodniu</label>
+            </div>
+            <div class="option">
+               <input type="radio" name="alkohol" value="" id="c122"/>
+               <label for="c122">Tak, kilka razy w miesiącu</label>
+            </div>
+            <div class="option">
+               <input type="radio" name="alkohol" value="" id="c123"/>
+               <label for="c123">Sporadycznie</label>
+            </div>
+
+            <div class="option">
+               <input type="radio" name="alkohol" value="" id="c124"/>
+               <label for="c124">Nie</label>
+            </div>
+         </div>
+      </div>
+
+      <!-- Pytanie nr 13 -->
+      <div class="question_answer_plodnosc">
+         <div class="question">
+            Czy nosisz telefon komórkowy w przedniej kieszeni spodni?
+         </div>
+         <div class="answers">
+            <div class="option">
+               <input type="radio" name="telefon" value="" id="c131"checked/>
+               <label for="c131">Tak</label>
+            </div>
+            <div class="option">
+               <input type="radio" name="telefon" value="" id="c132"/>
+               <label for="c132">Nie</label>
+            </div>
+         </div>
+      </div>
+
+      <!-- Pytanie nr 14 -->
+      <div class="question_answer_plodnosc">
+         <div class="question">
+            Czy w pracy masz styczność z niebezpiecznymi substancjami lub promieniowaniem?
+         </div>
+         <div class="answers">
+            <div class="option">
+               <input type="radio" name="promieniowanie" value="" id="c141" checked/>
+               <label for="c141">Tak</label>
+            </div>
+            <div class="option">
+               <input type="radio" name="tyton" value="" id="c142"/>
+               <label for="c142">Nie</label>
+            </div>
+         </div>
+      </div>
+
+      <!-- Pytanie nr 15 -->
+      <div class="question_answer_plodnosc">
+         <div class="question">
+            Czy jesteś często narażony na stres?
+         </div>
+         <div class="answers">
+            <div class="option">
+               <input type="radio" name="stres" value="" id="c151" checked/>
+               <label for="c151">Tak</label>
+            </div>
+            <div class="option">
+               <input type="radio" name="stres" value="" id="c152"/>
+               <label for="c152">Nie</label>
             </div>
          </div>
       </div>

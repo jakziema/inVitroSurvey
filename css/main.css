@@ -8,6 +8,16 @@
 
 }
 
+.question_answer_plodnosc {
+   padding: 20px;
+   border: 5px solid #FFFFFF;
+   background-color: #2950c5;
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+   color: #ecf0f1;
+
+}
+
 .question {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
    font-weight: 300;
