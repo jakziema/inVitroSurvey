@@ -46,6 +46,11 @@ $result2  = $conn->query($sql2);
 $sqlBelievers = "SELECT (pytanie1) from ankieta WHERE pytanie4 = \"tak\" ";
 $believersResult = $conn->query($sqlBelievers);
 
+
+//rozkład odpowidzi osób wierzących na pytanie kiedy powstaje zycie
+$sqlBelieversLife = "SELECT (pytanie3) from ankieta WHERE pytanie4 = \"tak\" ";
+$believersResultLife = $conn->query($sqlBelieversLife);
+
 $numberOfSurveys = "SELECT COUNT(answer) from ankieta";
 
 $result3 = mysql_query($numberOfSurveys ,$conn);
@@ -80,9 +85,14 @@ $counterBelieversYesInVitro = 0;
 $counterBelieversNoInVitro = 0;
 $counterBelieversNmInVitro = 0;
 
+$counterBelieversLifePolaczenie = 0;
+$counterBelieversLifeSerce = 0;
+$counterBelieversLifeNarodzin = 0;
+$counterBelieversLifeNm = 0;
+
 $numberOfSurveys = 0;
 
-
+$advice = "";
 
 
 if( $conn->query($sql) ) {
@@ -114,6 +124,7 @@ if( $conn->query($sql) ) {
       echo "0 results";
    }
 
+
    if ($believersResult->num_rows > 0 ) {
       while ($row = $believersResult->fetch_assoc()) {
          switch ($row["pytanie1"]) {
@@ -128,6 +139,61 @@ if( $conn->query($sql) ) {
             break;
          }
       }
+   }
+
+   if ($believersResultLife->num_rows > 0 ) {
+      while ($row = $believersResultLife->fetch_assoc()) {
+         switch ($row["pytanie3"]) {
+            case 'polaczenie':
+            $counterBelieversLifePolaczenie += 1;
+            break;
+            case 'narodzin':
+            $counterBelieversLifeNarodzin += 1;
+            break;
+            case 'serce':
+            $counterBelieversLifeSerce += 1;
+            break;
+            case 'nm':
+            $counterBelieversLifeNm += 1;
+            break;
+         }
+      }
+   }
+
+   switch ($a5) {
+      case 'k':
+      $advice = "<div class = \"advice\">
+
+      <b>Wyregulowanie układu hormonalnego</b><br />
+      Odpowiada on za prawidłowe funkcjonowanie całego organizmu. Dzięki hormonom produkowanym przez jajniki kontroluje przemianę materii, wzrost i rozwój człowieka, a także reguluje płodność kobiety.<br />
+      <b>Regularny tryb życia</b><br />
+      Hormony produkowane są w zależności od pory dnia: cześć w nocy, część w ciągu dnia. Oznacza to, że zaburzenia gospodarki hormonalnej, a przez to owulajci, mogą być spowodowane np. nieodborami snu.<br />
+      <b>Ruch</b><br />
+      Na poprawę płodności zaleca się aktywność fizyczną, by polepszyć ogólną kondycję ciała.<br />
+      <b>Prawidłowe BMI</b><br />
+      Stosunek masy ciała do wzrostu (BMI). Zbyt wysokie (powyżej 25.) lub zbyt niskie (poniżej 17,5.) może negatywnie wpływać na zdolności rozrodcze kobiety poprzez wywoływanie zmian hormonalnych.<br />
+      <b>Witaminy z grupy B</b><br />
+      Usprawniają działanie układu nerwowego. Wpływają na regularność cyklu miesiączkowego, zapewniają prawidłową produkcję żeńskich hormonów płciowych oraz prawidłowy przebieg owulacji i zagnieżdżania się komórek jajowych.
+źródło: produkty pełnoziarniste, chude mięso, ryby, jaja.<br />
+<b>Witamina E (witamina płodności)</b><br />
+Jej niedobór zmniejsza wydzielanie hormonu gonadotropowego, przyczyniając się do zaburzeń w przebiegu ciąży.
+źródło: oleje roślinne, orzechy laskowe, warzywa liściaste oraz pietruszka.<br /></div>
+      ";
+      break;
+      case 'm':
+      $advice = "<div class = \"advice\">
+
+      <b>Aktywność fizyczna</b><br />
+      Zbyt duża ilość tkanki tłuszczowej, w szczególności w okolicach pasa, może przyczynić się do obniżenia poziomu testosteronu i zwiększenia stężenia estrogenu w organizmie mężczyzny.<br />
+      <b>Seks</b><br />
+      Regularne aktywność seksualna poprawia jakość nasienia i pobudza jego produkcję.<br />
+      <b>Kwas foliowy</b><br />
+      Niski poziom kwasu foliowego w męskim organizmie może być przyczyną zaburzeń materiału genetycznego nasienia. Źródła:  soja, szpinak, brokuły, ryż, pomarańcze, banany, produkty zbożowe, kurza i wołowa wątróbka oraz jaja.<br />
+      <b>Selen</b><br />
+      Poprawia ruchliwość plemników oraz ich liczbę. Wspiera metabolizm testosteronu. Źródła: orzechy brazylijskie, nasiona słonecznika, owoce morza i ryby, drób, czosnek, cebula oraz ryż brązowy.<br /></div>
+      ";
+      break;
+
    }
    $numberOfSurveys = $counterMale + $counterFemale;
 
@@ -145,6 +211,26 @@ if( $conn->query($sql) ) {
    google.charts.setOnLoadCallback(drawPieChartSex);
    google.charts.setOnLoadCallback(drawPieChartBelievers);
    google.charts.setOnLoadCallback(drawPieChartBelieversInVitro);
+   google.charts.setOnLoadCallback(drawPieChartBelieversLife);
+
+   function drawPieChartBelieversLife() {
+
+      var data = google.visualization.arrayToDataTable([
+         ['Odpowiedz', 'Ilosc osob'],
+         ['Od momentu zapłodnienia', $counterBelieversLifePolaczenie],
+         ['Od momemntu,kiedy zaczyna bić serce dziecka',    $counterBelieversLifeSerce],
+         ['Od momentu narodzin', $counterBelieversLifeNarodzin],
+         ['Nie mam zdania', $counterBelieversLifeNm]
+      ]);
+
+      var options = {
+         title: 'Rozkład odpowiedzi osób wierzących na pytanie 4: \"Od kiedy według Pana/Pani zaczyna się życie człowieka?\"'
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechartBelieversLife'));
+
+      chart.draw(data, options);
+   }
 
    function drawPieChartBelieversInVitro() {
 
@@ -156,7 +242,7 @@ if( $conn->query($sql) ) {
       ]);
 
       var options = {
-         title: 'Rozkład wierzących i niewierzących'
+         title: 'Rozkład odpowiedzi osób wierzących na pytanie 1 : \"Czy popiera Pan/Pani procedurę zapłodnień metodą in vitro?\"'
       };
 
       var chart = new google.visualization.PieChart(document.getElementById('piechartBelieversInVitro'));
@@ -204,13 +290,24 @@ if( $conn->query($sql) ) {
    <div class = \"title\">
    <p>
    Dziękujemy za wypełnienie ankiety<br>
-   $result
+   <br />
+   $result<br />
+   <n>Co pozytywnie wpływa na Twoją płodność?</n>
+   </div>
+   $advice<br />
    </p>
+
+   <div class = \"graphs\">
+   <div id=\"piechartSex\" style=\"width: 1200px; height: 500px;\"></div>
+   <div id=\"piechartBelievers\" style=\"width: 1200px; height: 500px;\"></div>
+   <div id=\"piechartBelieversInVitro\" style=\"width: 1200px; height: 500px;\"></div>
+   <div id=\"piechartBelieversLife\" style=\"width: 1200px; height: 500px;\"></div>
    </div>
 
-   <div id=\"piechartSex\" style=\"width: 900px; height: 500px;\"></div>
-   <div id=\"piechartBelievers\" style=\"width: 900px; height: 500px;\"></div>
-   <div id=\"piechartBelieversInVitro\" style=\"width: 900px; height: 500px;\"></div>
+
+   </div>
+
+
    </body>
    </html>";
 

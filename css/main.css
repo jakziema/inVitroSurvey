@@ -7,6 +7,15 @@
    color: #ecf0f1;
 
 }
+.advice {
+   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   font-weight: 300;
+   font-size: 20px;
+   margin-left: auto;
+    margin-right: auto;
+    width: 50em;
+    text-align:  justify;
+}
 
 .question_answer_plodnosc {
    padding: 20px;
@@ -82,4 +91,8 @@
    color: #000000;
    padding-bottom: 10px;
    font-size: 15px;
+}
+
+.graphs {
+    padding-left: 2cm;
 }
