@@ -10,35 +10,32 @@ if($conn->connect_error) {
    die("Connection failed: " .$conn->connect_error);
 }
 
-$a1 = $_POST['popiera'];
-$a2 = $_POST['zajscie'];
-$a3 = $_POST['zycie'];
-$a4 = $_POST['wiara'];
-$a5 = $_POST['plec'];
-$a6 = $_POST['wiek'];
-$a7 = $_POST['zamieszkanie'];
-$a8 = $_POST['wyksztalcenie'];
-$a9 = $_POST['dzieci'];
-$a10 = $_POST['zwiazek'];
+// zmienne przechowujące wybrane odpowiedzi
+$a1 = mysqli_real_escape_string($conn,$_POST['popiera']);
+$a2 = mysqli_real_escape_string($conn,$_POST['zajscie']);
+$a3 = mysqli_real_escape_string($conn,$_POST['zycie']);
+$a4 = mysqli_real_escape_string($conn,$_POST['wiara']);
+$a5 = mysqli_real_escape_string($conn,$_POST['plec']);
+$a6 = mysqli_real_escape_string($conn,$_POST['wiek']);
+$a7 = mysqli_real_escape_string($conn,$_POST['zamieszkanie']);
+$a8 = mysqli_real_escape_string($conn,$_POST['wyksztalcenie']);
+$a9 = mysqli_real_escape_string($conn,$_POST['dzieci']);
+$a10 = mysqli_real_escape_string($conn,$_POST['zwiazek']);
 
+//zmienne przechowujące wybrane odpowiedzi. Służa do obliczenia "parametru płodności"
 $a11 = $_POST['tyton'];
 $a12 = $_POST['alkohol'];
 $a13 = $_POST['telefon'];
 $a14 = $_POST['promieniowanie'];
 $a15 = $_POST['stres'];
 
+//suma punktów "płodności"
 $suma = $a11 + $a12 + $a13 + $a14 + $a15;
-//wierzacy. niewierzacy za i przeciw
-// podzial kobiet i mezczyzn
-//wierzacy od kiedy zycie dziecka
 
-
-
-
-
-
+//zapytanie zapisywania wynikow do bazy
 $sql = "INSERT INTO ankieta (pytanie1,pytanie2,pytanie3,pytanie4,pytanie5,pytanie6,pytanie7,pytanie8,pytanie9,pytanie10) VALUES ('$a1','$a2','$a3','$a4','$a5','$a6','$a7','$a8','$a9','$a10')";
 
+//wybierz z bazy pytania , które służa późniejszej iteracji
 $sql2 = "SELECT answer,pytanie1,pytanie2, pytanie3, pytanie4, pytanie5, pytanie6, pytanie7, pytanie8, pytanie9, pytanie10 FROM ankieta";
 $result2  = $conn->query($sql2);
 
@@ -51,13 +48,13 @@ $believersResult = $conn->query($sqlBelievers);
 $sqlBelieversLife = "SELECT (pytanie3) from ankieta WHERE pytanie4 = \"tak\" ";
 $believersResultLife = $conn->query($sqlBelieversLife);
 
+//liczba wszystkich ankiet
 $numberOfSurveys = "SELECT COUNT(answer) from ankieta";
 
 $result3 = mysql_query($numberOfSurveys ,$conn);
 
-
+// w zależności od uzyskanych punktów płodności ustawiamy różny komunikat
 $result = "";
-
 switch ($suma) {
    // 0 - 3  Jesteś w świetnej formie. Nie musisz obawiać sie o swoją płodność.
    case ($suma <= 3):
@@ -74,7 +71,7 @@ switch ($suma) {
 }
 
 
-
+// zmienne przechowujące liczby głosów
 $counterMale = 0;
 $counterFemale = 0;
 
@@ -94,21 +91,26 @@ $numberOfSurveys = 0;
 
 $advice = "";
 
-
+// jeśli wykonano poprawne "zapisanie" w bazie danych
 if( $conn->query($sql) ) {
 
+   //jeśli polecenie select ma więcej niż 0 wierszy
    if ($result2->num_rows > 0) {
+      // iterujemy po słowniku
       while($row = $result2->fetch_assoc()) {
 
          switch ($row["pytanie5"]) {
+            // jeśli mężczyzna
             case 'm':
             $counterMale += 1;
             break;
+            //jeśli kobieta
             case 'k':
             $counterFemale += 1;
             break;
          }
 
+         // czy wierzący
          switch ($row["pytanie4"]) {
             case 'tak':
             $counterBelievers += 1;
@@ -126,6 +128,7 @@ if( $conn->query($sql) ) {
 
 
    if ($believersResult->num_rows > 0 ) {
+      //iterujmey po zapytaniu sprawdzający poparice wierzących metody in vitro
       while ($row = $believersResult->fetch_assoc()) {
          switch ($row["pytanie1"]) {
             case 'tak':
@@ -142,6 +145,7 @@ if( $conn->query($sql) ) {
    }
 
    if ($believersResultLife->num_rows > 0 ) {
+      // iterujemy po zapytaniu sprawdzającym zdanie wierzących na temat początku życia płodu
       while ($row = $believersResultLife->fetch_assoc()) {
          switch ($row["pytanie3"]) {
             case 'polaczenie':
@@ -160,6 +164,7 @@ if( $conn->query($sql) ) {
       }
    }
 
+   // w zależności od wybranej płci ustawiamy rady dotyczące polepszenia płodności
    switch ($a5) {
       case 'k':
       $advice = "<div class = \"advice\">
@@ -180,6 +185,8 @@ Jej niedobór zmniejsza wydzielanie hormonu gonadotropowego, przyczyniając się
 źródło: oleje roślinne, orzechy laskowe, warzywa liściaste oraz pietruszka.<br /></div>
       ";
       break;
+
+
       case 'm':
       $advice = "<div class = \"advice\">
 
@@ -199,6 +206,7 @@ Jej niedobór zmniejsza wydzielanie hormonu gonadotropowego, przyczyniając się
 
 
 
+   // Rysujemy pie charts
    echo "<html lang=\"en\">
    <head>
    <meta charset=\"utf-8\">
