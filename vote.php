@@ -32,13 +32,19 @@ $suma = $a11 + $a12 + $a13 + $a14 + $a15;
 // podzial kobiet i mezczyzn
 //wierzacy od kiedy zycie dziecka
 
-$sql2 = "SELECT answer,pytanie1,pytanie2, pytanie3, pytanie4, pytanie5, pytanie6, pytanie7, pytanie8, pytanie9, pytanie10 FROM ankieta";
-$result2  = $conn->query($sql2);
+
 
 
 
 
 $sql = "INSERT INTO ankieta (pytanie1,pytanie2,pytanie3,pytanie4,pytanie5,pytanie6,pytanie7,pytanie8,pytanie9,pytanie10) VALUES ('$a1','$a2','$a3','$a4','$a5','$a6','$a7','$a8','$a9','$a10')";
+
+$sql2 = "SELECT answer,pytanie1,pytanie2, pytanie3, pytanie4, pytanie5, pytanie6, pytanie7, pytanie8, pytanie9, pytanie10 FROM ankieta";
+$result2  = $conn->query($sql2);
+
+// rozkład odpowiedzi osób wierzących na pytanie czy popierają invitro
+$sqlBelievers = "SELECT (pytanie1) from ankieta WHERE pytanie4 = \"tak\" ";
+$believersResult = $conn->query($sqlBelievers);
 
 $numberOfSurveys = "SELECT COUNT(answer) from ankieta";
 
@@ -66,73 +72,133 @@ switch ($suma) {
 
 $counterMale = 0;
 $counterFemale = 0;
+
+$counterBelievers = 0;
+$counterNonBelievers = 0;
+
+$counterBelieversYesInVitro = 0;
+$counterBelieversNoInVitro = 0;
+$counterBelieversNmInVitro = 0;
+
 $numberOfSurveys = 0;
-$strCounterMale = strval($counterMale);
-$strCounterFemale = strval($counterFemale);
-$strNumberOfSurveys = strval($numberOfSurveys);
+
 
 
 
 if( $conn->query($sql) ) {
 
-
-
-
    if ($result2->num_rows > 0) {
-    while($row = $result2->fetch_assoc()) {
+      while($row = $result2->fetch_assoc()) {
 
-        switch ($row["pytanie5"]) {
-           case 'm':
-              $counterMale += 1;
-              break;
-              case 'k':
-                 $counterFemale += 1;
-                 break;
+         switch ($row["pytanie5"]) {
+            case 'm':
+            $counterMale += 1;
+            break;
+            case 'k':
+            $counterFemale += 1;
+            break;
+         }
 
-        }
-    }
+         switch ($row["pytanie4"]) {
+            case 'tak':
+            $counterBelievers += 1;
+            break;
+            case 'nie':
+            $counterNonBelievers += 1;
+            break;
+         }
+      }
 
 
-} else {
-    echo "0 results";
-}
+   } else {
+      echo "0 results";
+   }
 
-$numberOfSurveys = $counterMale + $counterFemale;
+   if ($believersResult->num_rows > 0 ) {
+      while ($row = $believersResult->fetch_assoc()) {
+         switch ($row["pytanie1"]) {
+            case 'tak':
+            $counterBelieversYesInVitro += 1;
+            break;
+            case 'nie':
+            $counterBelieversNoInVitro += 1;
+            break;
+            case 'nm':
+            $counterBelieversNmInVitro += 1;
+            break;
+         }
+      }
+   }
+   $numberOfSurveys = $counterMale + $counterFemale;
 
 
 
    echo "<html lang=\"en\">
    <head>
    <meta charset=\"utf-8\">
+   <link rel=\"stylesheet\" href=\"css/main.css\" />
    <title>Ankieta na temat in vitro.  </title>
 
    <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>
    <script type=\"text/javascript\">
-     google.charts.load('current', {'packages':['corechart']});
-     google.charts.setOnLoadCallback(drawChart);
-     function drawChart() {
+   google.charts.load('current', {'packages':['corechart']});
+   google.charts.setOnLoadCallback(drawPieChartSex);
+   google.charts.setOnLoadCallback(drawPieChartBelievers);
+   google.charts.setOnLoadCallback(drawPieChartBelieversInVitro);
+
+   function drawPieChartBelieversInVitro() {
 
       var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Work',     11],
-        ['Eat',      2],
-        ['Commute',  2],
-        ['Watch TV', 2],
-        ['Sleep',    7]
+         ['Odpowiedz', 'Ilosc osob'],
+         ['Tak', $counterBelieversYesInVitro],
+         ['Nie',    $counterBelieversNoInVitro],
+         ['Nie mam zdania', $counterBelieversNmInVitro]
       ]);
 
       var options = {
-        title: 'My Daily Activities'
+         title: 'Rozkład wierzących i niewierzących'
       };
 
-      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      var chart = new google.visualization.PieChart(document.getElementById('piechartBelieversInVitro'));
 
       chart.draw(data, options);
-     }
+   }
+
+   function drawPieChartBelievers() {
+
+      var data = google.visualization.arrayToDataTable([
+         ['Wierzacy', 'Ilosc osob'],
+         ['Wierzący', $counterBelievers],
+         ['Niewierzący',    $counterNonBelievers]
+      ]);
+
+      var options = {
+         title: 'Rozkład wierzących i niewierzących'
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechartBelievers'));
+
+      chart.draw(data, options);
+   }
+
+   function drawPieChartSex() {
+
+      var data = google.visualization.arrayToDataTable([
+         ['Plec', 'Ilosc osob'],
+         ['Mężczyźni', $counterMale],
+         ['Kobiety',    $counterFemale]
+      ]);
+
+      var options = {
+         title: 'Rozkład płci ankietowanych'
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechartSex'));
+
+      chart.draw(data, options);
+   }
    </script>
-
    </head>
-
    <body>
 
    <div class = \"title\">
@@ -140,15 +206,12 @@ $numberOfSurveys = $counterMale + $counterFemale;
    Dziękujemy za wypełnienie ankiety<br>
    $result
    </p>
-   <p>
-
    </div>
 
-   <div id=\"piechart\" style=\"width: 900px; height: 500px;\"></div>
+   <div id=\"piechartSex\" style=\"width: 900px; height: 500px;\"></div>
+   <div id=\"piechartBelievers\" style=\"width: 900px; height: 500px;\"></div>
+   <div id=\"piechartBelieversInVitro\" style=\"width: 900px; height: 500px;\"></div>
    </body>
-
-
-
    </html>";
 
 } else {
