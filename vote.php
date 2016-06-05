@@ -106,38 +106,30 @@ $numberOfSurveys = $counterMale + $counterFemale;
    <meta charset=\"utf-8\">
    <title>Ankieta na temat in vitro.  </title>
 
-   <link rel=\"stylesheet\" href=\"css/main.css\" />
+   <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>
+   <script type=\"text/javascript\">
+     google.charts.load('current', {'packages':['corechart']});
+     google.charts.setOnLoadCallback(drawChart);
+     function drawChart() {
 
-   <script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>
-    <script type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js\"></script>
-    <script type=\"text/javascript\">
-
-    google.load('visualization', '1', {'packages':['corechart']});
-
-    google.setOnLoadCallback(drawChart);
-    var counter = $strNumberOfSurveys;
-    var counter1 = $strCounterFemale;
-    function drawChart() {
-
-      // Create our data table out of JSON data loaded from server.
-      var data = new google.visualization.DataTable([
-
-             ['Kobiet',  counter1 * 100],
-             ['Mężczyzn',(counter - counter1) * 100],
-
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Work',     11],
+        ['Eat',      2],
+        ['Commute',  2],
+        ['Watch TV', 2],
+        ['Sleep',    7]
       ]);
+
       var options = {
-           title: 'My Weekly Plan',
-          is3D: 'true',
-          width: 800,
-          height: 600
-        };
-      // Instantiate and draw our chart, passing in some options.
-      // Do not forget to check your div ID
-      var chart = new google.visualization.PieChart(document.getElementById(\"chart_div\"));
+        title: 'My Daily Activities'
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
       chart.draw(data, options);
-    }
-    </script>
+     }
+   </script>
 
    </head>
 
@@ -152,7 +144,7 @@ $numberOfSurveys = $counterMale + $counterFemale;
 
    </div>
 
-   <div id=\"chart_div\"></div>
+   <div id=\"piechart\" style=\"width: 900px; height: 500px;\"></div>
    </body>
 
 
